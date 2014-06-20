@@ -47,7 +47,7 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
  */
 public class SwipeListViewTouchListener implements View.OnTouchListener {
     
-    private ArrayList<View> backViews = new ArrayList<View>();
+    ArrayList<BackViewHolder> backViews = new ArrayList<BackViewHolder>();
 
     private static final int DISPLACE_CHOICE = 80;
 
@@ -601,9 +601,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             } else {
                                 if (backViews != null) {
                                     for (int i = 0; i < backViews.size(); i++){
-                                        backViews.get(i).setVisibility(View.GONE);
+                                        BackViewHolder holder = backViews.get(i);
+                                        if (!opened.get(holder.position)) {
+                                            holder.backView.setVisibility(View.GONE);
+                                            backViews.remove(i);
+                                        }
                                     }
-                                    backViews.clear();
+                                    //backViews.clear();
                                 }
                                 swipeListView.onClosed(position, openedRight.get(position));
                             }
@@ -616,10 +620,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         if (swap) {
                             boolean aux = !opened.get(position);
                             if (aux)  {
-				if (backViews != null){
+                                if (backViews != null){
                                     backView.setVisibility(View.VISIBLE);
-                                    backViews.add(backView);
-				}
+                                    backViews.add(new BackViewHolder(backView, position));
+                                }
                             }
                         }
                     }
@@ -1071,5 +1075,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         resetPendingDismisses();
 
     }
-
+    
+    static class BackViewHolder {
+        public View backView;
+        public int position;
+        BackViewHolder(View backView, int position) {
+            this.backView = backView;
+            this.position = position;
+        }
+    }
 }

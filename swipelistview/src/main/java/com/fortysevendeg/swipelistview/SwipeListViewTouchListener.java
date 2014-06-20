@@ -596,11 +596,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                                 swipeListView.onOpened(position, swapRight);
                                 openedRight.set(position, swapRight);
                             } else {
-                                if (backviews != null) {
-                                    for (int i = 0; i < backviews.size(); i++){
-                                        backviews.get(i).setVisibility(View.GONE);
+                                if (backViews != null) {
+                                    for (int i = 0; i < backViews.size(); i++){
+                                        backViews.get(i).setVisibility(View.GONE);
                                     }
-                                    backviews.clear();
+                                    backViews.clear();
                                 }
                                 swipeListView.onClosed(position, openedRight.get(position));
                             }
@@ -614,7 +614,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             boolean aux = !opened.get(position);
                             if (aux)  {
                                 backView.setVisibility(View.VISIBLE);
-                                backviews.add(backView);
+                                backViews.add(backView);
                             }
                         }
                     }

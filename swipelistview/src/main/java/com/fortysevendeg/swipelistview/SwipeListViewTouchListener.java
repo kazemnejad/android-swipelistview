@@ -599,7 +599,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                                 swipeListView.onOpened(position, swapRight);
                                 openedRight.set(position, swapRight);
                             } else {
-                                if (backViews != null) {
+                                if (backViews != null && backView != null) {
                                     for (int i = 0; i < backViews.size(); i++){
                                         BackViewHolder holder = backViews.get(i);
                                         if (!opened.get(holder.position)) {
@@ -620,7 +620,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         if (swap) {
                             boolean aux = !opened.get(position);
                             if (aux)  {
-                                if (backViews != null){
+                                if (backViews != null && backView != null){
                                     backView.setVisibility(View.VISIBLE);
                                     backViews.add(new BackViewHolder(backView, position));
                                 }

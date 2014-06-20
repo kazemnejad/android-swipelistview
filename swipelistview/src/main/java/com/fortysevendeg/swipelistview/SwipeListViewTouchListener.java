@@ -317,7 +317,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param position Position of list
      */
     protected void openAnimate(int position) {
-        openAnimate(swipeListView.getChildAt(position - swipeListView.getFirstVisiblePosition()).findViewById(swipeFrontView), position);
+        View view = swipeListView.getChildAt(position - swipeListView.getFirstVisiblePosition());
+        if (view != null) {
+            openAnimate(view.findViewById(swipeFrontView), position);
+        }
     }
 
     /**
@@ -613,8 +616,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         if (swap) {
                             boolean aux = !opened.get(position);
                             if (aux)  {
-                                backView.setVisibility(View.VISIBLE);
-                                backViews.add(backView);
+				if (backViews != null){
+                                    backView.setVisibility(View.VISIBLE);
+                                    backViews.add(backView);
+				}
                             }
                         }
                     }

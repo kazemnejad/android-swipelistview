@@ -47,7 +47,8 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
  */
 public class SwipeListViewTouchListener implements View.OnTouchListener {
     
-    ArrayList<BackViewHolder> backViews = new ArrayList<BackViewHolder>();
+    private ArrayList<BackViewHolder> backViews = new ArrayList<BackViewHolder>();
+    private boolean isLongPress = false;
 
     private static final int DISPLACE_CHOICE = 80;
 
@@ -140,13 +141,17 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         frontView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swipeListView.onClickFrontView(downPosition);
+                if (!isLongPress){
+                    swipeListView.onClickFrontView(downPosition);
+                }
+                isLongPress = false;
             }
         });
         if (swipeOpenOnLongPress) {
             frontView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    isLongPress = true;
                     openAnimate(downPosition);
                     return false;
                 }
